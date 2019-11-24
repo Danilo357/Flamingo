@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks";
 import { Link } from "react-router-dom";
+
 export default props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { signin } = useAuth();
+  const { reg } = useAuth();
   function handleSubmit(e) {
     e.preventDefault();
 
-    signin(username, password)
+    reg(username, password)
       .then(resp => {
         props.history.push("/");
       })
@@ -17,8 +18,9 @@ export default props => {
 
   return (
     <div className="top">
-      <p className="regi">If you don't have account please Register here:</p>
-      <Link to="/register">Register</Link>
+      <p className="regi">If you already have account please Login here:</p>
+      <Link to="/login"> Login</Link>
+
       <div className="log">
         <form onSubmit={handleSubmit}>
           <input
@@ -42,8 +44,9 @@ export default props => {
           />
           <br />
           <br />
+
           <button className="but" type="submit">
-            Login
+            Register
           </button>
         </form>
       </div>

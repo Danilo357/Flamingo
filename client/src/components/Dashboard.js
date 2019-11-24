@@ -4,11 +4,11 @@ import { useAuth, useChat } from "../hooks";
 export default props => {
   const { username, signout } = useAuth();
   const [message, setMessage] = useState("");
-  const { messages, add } = useChat();
+  const { messages, add, users } = useChat();
 
-  function handleSumbit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    add(message);
+    add({ message, username });
     setMessage("");
   }
 
@@ -26,10 +26,21 @@ export default props => {
         />
         <button type="submit">Submit</button>
       </form>
+      <div id="chat">
+        <div id="users">
+          {users.map((u, i) => (
+            <p key={"mess" + i}>{u.username}</p>
+          ))}
+        </div>
 
-      {messages.map((msg, i) => (
-        <p key={"message" + i}>{msg}</p>
-      ))}
+        <div id="messages">
+          {messages.map((msg, i) => (
+            <p key={"message" + i}>
+              {msg.username} : {msg.message}
+            </p>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

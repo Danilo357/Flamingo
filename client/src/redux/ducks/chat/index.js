@@ -1,13 +1,17 @@
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import { useSelector, useDispatch } from "react-redux";
-
-const socket = io("http://localhost:8080", {
-  transports: ["websocket"]
-});
+import { useEffect } from "react";
+import socket from "../../../lib/socket";
+// const socket = io("http://localhost:8080", {
+//   transports: ["websocket"]
+// });
 
 const ADD_MESSAGE = "chat/ADD_MESSAGE";
+const GET_USERS = "chat/GET_USERS";
+
 const initialState = {
-  messages: []
+  messages: [],
+  users: []
 };
 
 export default (state = initialState, action) => {
@@ -17,10 +21,19 @@ export default (state = initialState, action) => {
         ...state,
         messages: [...state.messages, action.payload]
       };
+    case GET_USERS:
+      return { ...state, users: action.payload };
     default:
       return state;
   }
 };
+
+function getUsers(users) {
+  return {
+    type: GET_USERS,
+    payload: users
+  };
+}
 
 function addMessage(message) {
   return {
@@ -32,11 +45,16 @@ function addMessage(message) {
 export function useChat() {
   const dispatch = useDispatch();
   const messages = useSelector(appState => appState.chatState.messages);
+  const users = useSelector(appState => appState.chatState.users);
   const add = message => socket.emit("message", message);
+  useEffect(() => {
+    socket.on("message", message => {
+      dispatch(addMessage(message));
+    });
 
-  socket.on("message", message => {
-    dispatch(addMessage(message));
-  });
-
-  return { add, messages };
+    socket.on("users", users => {
+      dispatch(getUsers(users));
+    });
+  }, [dispatch]);
+  return { add, messages, users };
 }
