@@ -67,3 +67,16 @@ code {
 .regi {
   color: white;
 }
+
+.top-chat {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  background: lightblue;
+  height: 1000px;
+}
+
+i {
+  font-size: 80px !important;
+  color: white;
+}

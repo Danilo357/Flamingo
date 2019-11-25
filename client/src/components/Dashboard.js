@@ -13,7 +13,7 @@ export default props => {
   }
 
   return (
-    <div>
+    <div className="top-chat">
       <h1>Hello {username}!</h1>
 
       <button onClick={e => signout()}>Sign out</button>

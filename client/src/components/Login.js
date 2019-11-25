@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks";
 import { Link } from "react-router-dom";
+import I from "../lib/Icon";
 export default props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +20,9 @@ export default props => {
     <div className="top">
       <p className="regi">If you don't have account please Register here:</p>
       <Link to="/register">Register</Link>
+      <br />
+      <br />
+      <I icon="user" />
       <div className="log">
         <form onSubmit={handleSubmit}>
           <input
