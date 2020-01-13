@@ -23,7 +23,7 @@ export default props => {
       <Link to="/login"> Login</Link>
       <br />
       <br />
-      <I icon="user" className="pic" />
+      <I icon="user" />
 
       <div className="log">
         <form onSubmit={handleSubmit}>

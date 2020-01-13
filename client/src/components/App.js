@@ -7,6 +7,7 @@ import Register from "./Register";
 function App() {
   return (
     <div>
+      <h2>Let's insert something in MYSQL database!</h2>
       <Router>
         <Switch>
           <Route exact path="/login" component={Login} />
